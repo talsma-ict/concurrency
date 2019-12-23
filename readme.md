@@ -5,26 +5,33 @@
 
 # Context propagation library
 
-Library to propagate `ThreadLocal` snapshots by reactivating in another thread.
+Propagate a snapshot of one or more `ThreadLocal` values into another thread.
 
-Tools help automate propagation by capturing snapshots 
-and ensuring proper closing of reactivated context snapshots:
-- [`ContextAwareExecutorService`][ContextAwareExecutorService] that wraps any existing `ExecutorService`
-- [`ContextAwareCompletableFuture`][ContextAwareCompletableFuture] that 
-  propagates context snapshots into each successive `CompletionStage`.
+This library enables automatic propagation of several well-known ThreadLocal contexts 
+by capturing a snapshot, reactivating it in another thread and ensuring proper 
+cleanup after execution finishes:
+
+- [`ContextAwareExecutorService`][ContextAwareExecutorService] 
+  wrapping any existing `ExecutorService`.
+- [`ContextAwareCompletableFuture`][ContextAwareCompletableFuture] 
+  propagating context snapshots into each successive `CompletionStage`.
 
 ## Terminology
 
 ### Context
 
-A context contains a value. There is one _active_ context _per thread_.  
-An `AbstractThreadLocalContext` base class is provided that allows nested contexts 
-and provides predictable behaviour for out-of-order closing.
+Abstraction containing a value in the context of a _thread_. 
+The most common implementation in Java is a ThreadLocal value.
+The library provies an `AbstractThreadLocalContext` base class 
+that features nesting values and predictable behaviour for out-of-order closing.
+
+For each context type, there can only be one _active_ context per thread at any time.
 
 ### ContextManager
 
-Manages the active context.  
-Can initialize a new context and provides access to the active context.
+Manages a context.
+The ContextManager API can activate a new context value and 
+provides access to the active context value.
 
 ### ContextSnapshot
 
@@ -55,21 +62,19 @@ try (Context<Void> reactivation = snapshot.reactivate()) {
 
 ### Threadpools and ExecutorService
 
-If your background threads are managed by an `ExecutorService` acting as a threadpool,
-you can use the `ContextAwareExecutorService` instead of your usual threadpool.  
-This automatically takes a new context snapshot when submitting new work
-and reactivates this snapshot in the background thread.  
-The `ContextAwareExecutorService` can wrap any `ExecutorService` for the actual thread execution:
+If your background threads are managed by an ExecutorService,
+you can use our _context aware_ ExecutorService instead of your usual threadpool.
+
+When submitting new work, this automatically takes a context snapshot
+to reactivate in the background thread.  
+After the background thread finishes the snapshot is closed,
+ensuring no ThreadLocal values leak into the thread pool.
+
+The `ContextAwareExecutorService` can wrap any ExecutorService for the actual thread execution:
 ```java
-// private static final ExecutorService THREADPOOL = Executors.newCachedThreadpool();
 private static final ExecutorService THREADPOOL = 
         new ContextAwareExecutorService(Executors.newCachedThreadpool());
 ```
-
-It will automatically create a snapshot and reactivate it in the 
-background thread when started.  
-The ThreadLocal values from the calling thread will therefore 
-be available in the background thread as well.
 
 ## Supported contexts
 

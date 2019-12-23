@@ -26,7 +26,7 @@
     <groupId>nl.talsmasoftware.context</groupId>
     <artifactId>context-propagation-kotlin</artifactId>
     <name>Context propagation (kotlin)</name>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>

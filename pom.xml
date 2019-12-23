@@ -25,7 +25,7 @@
     <!-- Artifact identification -->
     <groupId>nl.talsmasoftware.context</groupId>
     <artifactId>context-propagation-root</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <!-- Project information -->
@@ -39,6 +39,7 @@
         <module>context-propagation-java5</module>
         <module>context-propagation-java8</module>
         <module>context-propagation-metrics</module>
+        <module>context-propagation-micrometer</module>
         <module>context-propagation-kotlin</module>
         <module>locale-context</module>
         <module>mdc-propagation</module>
@@ -85,30 +86,30 @@
         <project.moduleName>${project.groupId}.${project.artifactId}</project.moduleName>
         <root.basedir>${project.basedir}</root.basedir>
 
-        <metrics.version>4.1.0</metrics.version>
+        <metrics.version>4.1.2</metrics.version>
         <opentracing-api.version>0.33.0</opentracing-api.version>
         <spring-security.version>5.1.5.RELEASE</spring-security.version>
         <servlet-api.version>4.0.1</servlet-api.version>
 
-        <slf4j.version>1.7.28</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <junit.version>4.12</junit.version>
         <logback.version>1.2.3</logback.version>
-        <hamcrest.version>2.1</hamcrest.version>
+        <hamcrest.version>2.2</hamcrest.version>
         <mockito.version>1.10.19</mockito.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
-        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-        <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-scm-plugin.version>1.11.2</maven-scm-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-        <umldoclet.version>2.0.5</umldoclet.version>
+        <umldoclet.version>2.0.7</umldoclet.version>
     </properties>
 
     <build>
@@ -216,6 +217,10 @@
                         <offlineLink>
                             <url>https://javadoc.io/page/javax.servlet/javax.servlet-api/${servlet-api.version}</url>
                             <location>${root.basedir}/.mvn/javadoc/servlet-api</location>
+                        </offlineLink>
+                        <offlineLink>
+                            <url>https://www.javadoc.io/page/io.micrometer/micrometer-core/1.3.2</url>
+                            <location>${root.basedir}/.mvn/javadoc/micrometer-core</location>
                         </offlineLink>
                     </offlineLinks>
                 </configuration>

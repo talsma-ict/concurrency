@@ -22,7 +22,7 @@
     <parent>
         <groupId>nl.talsmasoftware.context</groupId>
         <artifactId>context-propagation-root</artifactId>
-        <version>1.0.8-SNAPSHOT</version>
+        <version>1.0.9-SNAPSHOT</version>
     </parent>
 
     <artifactId>context-propagation-bom</artifactId>
@@ -90,6 +90,24 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>context-propagation-metrics</artifactId>
+                <version>${project.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>context-propagation-micrometer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>context-propagation-micrometer</artifactId>
+                <version>${project.version}</version>
+                <classifier>javadoc</classifier>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>context-propagation-micrometer</artifactId>
                 <version>${project.version}</version>
                 <classifier>sources</classifier>
             </dependency>
